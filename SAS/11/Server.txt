@@ -1,0 +1,31 @@
+import java.net.*;  //establish connection
+import java.io.*;   //reading the message
+import java.util.*;
+
+public class StrServer{
+public static void main(String args[])throws Exception{
+
+ServerSocket s1=new ServerSocket(10000);
+System.out.println("...Server Waiting........");
+
+Socket s=s1.accept();
+System.out.println(" Create a connection with client ");
+
+BufferedReader brr=new BufferedReader(new InputStreamReader(s.getInputStream()));
+String st=brr.readLine();
+
+String output="";
+Scanner in=new Scanner(new File(st));
+while(in.hasNextLine()){
+String st=in.NextLine();
+output=output+st+"\n";
+}
+
+BufferedWriter brw=new BufferedWriter(new OutputStreamWriter(s.getOutputStream()));
+brw.write(output);
+brw.newLine();
+brw.flush();
+brw.close();
+brr.close();
+}
+}
